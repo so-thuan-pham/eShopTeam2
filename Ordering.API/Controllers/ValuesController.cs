@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Ordering.API.Application.Queries;
 
 namespace Ordering.API.Controllers
 {
@@ -10,6 +12,15 @@ namespace Ordering.API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly IMediator _mediator;
+        private readonly IProductQueries _productQueries;
+
+        public ValuesController(IMediator mediator, IProductQueries productQueries)
+        {
+            _mediator = mediator;
+            _productQueries = productQueries;
+        }
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
@@ -28,6 +39,9 @@ namespace Ordering.API.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
+            int a = 1;
+            int b = 1;
+            int c = a + b;
         }
 
         // PUT api/values/5
