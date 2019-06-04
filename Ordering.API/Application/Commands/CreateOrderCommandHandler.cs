@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Ordering.Domain;
 using Ordering.Domain.AggregatesModel.OrderAggregate;
+using Ordering.Domain.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,9 @@ namespace Ordering.API.Application.Commands
             {
                 order.AddOrderItem(item.SKU, item.UnitPrice, item.Quantity);
             }
+
+            //order.AddDomainEvent(new OrderStartedDomainEvent(request.EmailAddress));
+            _mediator.Publish<OrderStartedDomainEvent>(new OrderStartedDomainEvent(request.EmailAddress)).Start();
 
             //_orderRepository.Add(order);
             using (var uow = _uowProvider.Create())

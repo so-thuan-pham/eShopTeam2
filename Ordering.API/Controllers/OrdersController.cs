@@ -30,12 +30,14 @@ namespace Ordering.API.Controllers
             foreach (var item in createOrderCommand.OrderItems)
             {
                 var product = await _productQueries.GetProductBySKUAsync(item.SKU);
+
                 if (product != null)
                 {
                     item.ProductId = product.Id;
                     item.UnitPrice = product.UnitPrice;
                 }
             }
+
             return await _mediator.Send(createOrderCommand);
         }
     }
